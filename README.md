@@ -1,6 +1,6 @@
 # git-activity-logger
 
-I was feeling sad about moving to Bitbucket and losing my Github Profile Contribution Graph, so I made this `git` hook to register my activity when using other platforms on it.
+New corporate account is on Bitbucket but I didn't want to lose data on Github Profile Contribution Graph, so I made this `git` hook to register my activity on it when using other platforms.
 
 ## Install
 1. Create a new private repository on Github to store the activity logs and clone on local machine.
