@@ -5,7 +5,7 @@ GITHUB_USERNAME=""
 GITHUB_EMAIL="" # local git config
 GITHUB_NAME="" # local git config
 GITHUB_TOKEN=""
-ACTIVITY_REPO_DIR="" # local repo path (e.g. ~/dev/git-activity-logs)
+ACTIVITY_REPO_DIR= # local repo path (e.g. ~/dev/git-activity-logs)
 
 CURRENT_YEAR=$(date +"%Y")
 TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
