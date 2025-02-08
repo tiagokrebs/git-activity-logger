@@ -1,0 +1,48 @@
+#!/bin/bash
+
+SLUG="" # for log remote file path (e.g. company name)
+GITHUB_USERNAME=""
+GITHUB_EMAIL="" # local git config
+GITHUB_NAME="" # local git config
+GITHUB_TOKEN=""
+ACTIVITY_REPO_DIR="" # local repo path (e.g. ~/dev/git-activity-logs)
+
+CURRENT_YEAR=$(date +"%Y")
+TIMESTAMP=$(date +"%Y-%m-%d %H:%M:%S")
+LAST_COMMIT_HASH=$(git rev-parse HEAD)
+LOG_NAME="activity_log.csv"
+
+# change to the activity repo
+cd "$ACTIVITY_REPO_DIR" || exit
+
+# update local logs
+git pull
+
+# define log directory and file
+LOG_DIR="$ACTIVITY_REPO_DIR/$SLUG/$CURRENT_YEAR"
+LOG_FILE="$LOG_DIR/$LOG_NAME"
+
+# ensure the directory exists
+mkdir -p "$LOG_DIR"
+
+# create CSV header if does not exist
+if [ ! -f "$LOG_FILE" ]; then
+  echo "timestamp,commit_hash" >"$LOG_FILE"
+fi
+
+# append the new log entry
+echo "$TIMESTAMP,$LAST_COMMIT_HASH" >>"$LOG_FILE"
+
+# ensure the correct Git identity
+git config user.email "$GITHUB_EMAIL"
+git config user.name "$GITHUB_NAME"
+
+# commit the updated log file
+git add "$LOG_FILE"
+git commit -m "update $TIMESTAMP"
+
+# push to GitHub
+git push https://$GITHUB_TOKEN@github.com/$GITHUB_USERNAME/git-activity-logs.git main
+
+# return to the original directory
+cd - >/dev/null
