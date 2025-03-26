@@ -3,7 +3,7 @@
 SLUG="" # for log remote file path (e.g. company name)
 GITHUB_USERNAME=""
 GITHUB_EMAIL="" # local git config
-GITHUB_NAME="" # local git config
+GITHUB_NAME=""  # local git config
 GITHUB_TOKEN=""
 ACTIVITY_REPO_DIR= # local repo path (e.g. ~/dev/git-activity-logs)
 
@@ -36,6 +36,9 @@ echo "$TIMESTAMP,$LAST_COMMIT_HASH" >>"$LOG_FILE"
 # ensure the correct Git identity
 git config user.email "$GITHUB_EMAIL"
 git config user.name "$GITHUB_NAME"
+
+# Disable SSL verification
+git config http.sslVerify false
 
 # commit the updated log file
 git add "$LOG_FILE"
